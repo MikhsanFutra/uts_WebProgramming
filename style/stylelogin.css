@@ -16,15 +16,29 @@ body {
 }
 
 .card {
-    background-color: transparent;
+    background: rgba(0, 0, 0, 0.3);
     /* Semi-transparent background */
-    border: 2px solid #000;
+
     border-radius: 2px;
+}
+
+.card h3 {
+    color: #fff;
+}
+
+.card label p {
+    color: #fff;
+    margin-bottom: 1vh;
+}
+
+.card p {
+    color: #fff;
 }
 
 .daftar {
     background-color: transparent;
     color: white;
+    text-decoration: none;
 }
 
 .daftar:hover {

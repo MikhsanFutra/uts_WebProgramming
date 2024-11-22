@@ -47,6 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Halaman Register</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="../style/stylelogin.css">
 </head>
 
 <body class="bg-light">
@@ -58,20 +59,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <?php endif; ?>
             <form method="POST">
                 <div class="mb-3">
-                    <label for="username" class="form-label">Username</label>
+                    <label for="username" class="form-label">
+                        <p>Username</p>
+                    </label>
                     <input type="text" class="form-control" id="username" name="username" placeholder="Masukkan username" required>
                 </div>
                 <div class="mb-3">
-                    <label for="email" class="form-label">Email</label>
+                    <label for="email" class="form-label">
+                        <p>Email</p>
+                    </label>
                     <input type="email" class="form-control" id="email" name="email" placeholder="Masukkan email" required>
                 </div>
                 <div class="mb-3">
-                    <label for="password" class="form-label">Password</label>
+                    <label for="password" class="form-label">
+                        <p>Password</p>
+                    </label>
                     <input type="password" class="form-control" id="password" name="password" placeholder="Masukkan password" required>
                 </div>
                 <button type="submit" class="btn btn-primary w-100">Register</button>
             </form>
-            <p class="text-center mt-3">Sudah punya akun? <a href="login.php">Login di sini</a>.</p>
+            <p class="text-center mt-3">Sudah punya akun? <a href="login.php" class="daftar">Login di sini.</a></p>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>

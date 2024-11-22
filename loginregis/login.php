@@ -58,14 +58,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <?php endif; ?>
             <form method="POST">
                 <div class="mb-3">
-                    <label for="username" class="form-label text-dark">Username</label>
+                    <label for="username" class="form-label text-dark">
+                        <p>Username</p>
+                    </label>
                     <input type="text" class="form-control" id="username" name="username" placeholder="Masukkan username" required>
                 </div>
                 <div class="mb-3">
-                    <label for="password" class="form-label text-dark">Password</label>
+                    <label for="password" class="form-label text-dark">
+                        <p>Password</p>
+                    </label>
                     <input type="password" class="form-control" id="password" name="password" placeholder="Masukkan password" required>
                 </div>
-                <p class="text-center mt-3 text-light">Belum punya akun? <a href="register.php" class="daftar">daftar di sini</a>.</p>
+                <p class="text-center mt-3 text-light">Belum punya akun? <a href="register.php" class="daftar">daftar di sini.</a></p>
                 <button type="submit" class="btn btn-primary w-100">Login</button>
             </form>
         </div>
