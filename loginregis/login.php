@@ -1,6 +1,7 @@
 <?php
-// Mengambil koneksi dari koneksi.php
 require_once '../koneksi.php';
+
+session_start();
 
 $error = '';
 
@@ -9,7 +10,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['password'];
 
     try {
-        // Query untuk memeriksa username
         $sql = "SELECT * FROM user WHERE username = ?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("s", $username);
@@ -18,10 +18,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($result->num_rows > 0) {
             $user = $result->fetch_assoc();
-            // Verifikasi password menggunakan SHA1
             if (sha1($password) === $user['password']) {
-                // Login berhasil, arahkan ke dashboard
-                header("Location: ../lib/dashboard.php"); // Ganti dengan halaman dashboard
+                $_SESSION['username'] = $user['username'];
+                $_SESSION['email'] = $user['email'];
+
+                echo "<script>
+                        alert('Login berhasil!'); 
+                        window.location.href = '../lib/dashboard.php'; 
+                      </script>";
                 exit();
             } else {
                 $error = "Password salah.";
@@ -32,7 +36,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $stmt->close();
     } catch (Exception $e) {
-        // Menangkap dan menampilkan error
         $error = "Terjadi kesalahan: " . $e->getMessage();
     }
 }
@@ -46,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Halaman Login</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="../style/stylelogin.css">
+    <link rel="stylesheet" href="../style/style_loginregis.css">
 </head>
 
 <body class="bg-light">
@@ -56,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <?php if ($error): ?>
                 <div class="alert alert-danger"><?php echo $error; ?></div>
             <?php endif; ?>
-            <form method="POST">
+            <form id="loginForm" method="POST" onsubmit="return validateLogin()">
                 <div class="mb-3">
                     <label for="username" class="form-label text-dark">
                         <p>Username</p>
@@ -74,7 +77,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </form>
         </div>
     </div>
+    <footer class="text-light text-center py-3 mt-5">
+        <p>&copy;Copyright by <a class="cpr fw-bold" href="https://github.com/MikhsanFutra">22552011086_Moch Ikhsan Futra_TIF 22 CID</a></p>
+    </footer>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+    <script>
+        function validateLogin() {
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("password").value;
+
+            if (username == "") {
+                alert("Username harus diisi!");
+                return false;
+            }
+
+            if (password == "") {
+                alert("Password harus diisi!");
+                return false;
+            }
+
+            if (password.length < 6) {
+                alert("Password harus terdiri dari minimal 6 karakter!");
+                return false;
+            }
+
+            return true;
+        }
+    </script>
 </body>
 
 </html>

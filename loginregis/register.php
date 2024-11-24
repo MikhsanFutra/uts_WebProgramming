@@ -1,17 +1,15 @@
 <?php
-// Mengambil koneksi dari koneksi.php
 require_once '../koneksi.php';
 
-// Variabel untuk menampung pesan
 $message = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'];
     $email = $_POST['email'];
     $password = $_POST['password'];
-    $hashed_password = sha1($password); // Enkripsi password dengan SHA1
+    $hashed_password = sha1($password);
 
-    // Cek apakah username sudah ada
+
     $sql_check = "SELECT * FROM user WHERE username = ?";
     $stmt_check = $conn->prepare($sql_check);
     $stmt_check->bind_param("s", $username);
@@ -21,7 +19,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($result_check->num_rows > 0) {
         $message = "Username sudah digunakan!";
     } else {
-        // Insert ke database
         $sql = "INSERT INTO user (username, email, password) VALUES (?, ?, ?)";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("sss", $username, $email, $hashed_password);
@@ -47,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Halaman Register</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="../style/stylelogin.css">
+    <link rel="stylesheet" href="../style/style_loginregis.css">
 </head>
 
 <body class="bg-light">
@@ -81,6 +78,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <p class="text-center mt-3">Sudah punya akun? <a href="login.php" class="daftar">Login di sini.</a></p>
         </div>
     </div>
+    <footer class="text-light text-center py-3 mt-5">
+        <p>&copy;Copyright by <a class="cpr fw-bold" href="https://github.com/MikhsanFutra">22552011086_Moch Ikhsan Futra_TIF 22 CID</a></p>
+    </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 
